@@ -60,10 +60,10 @@ answer, asking a person as an effect. Each has a home already; they meet a space
 
 | place | before | on okay-frames |
 | --- | --- | --- |
-| okay-shop `okay.shop.commands` | `Frames`, `Words` | `Commands extends Space[Desk, Command]` — done, see below |
-| okay-inlay `okay.inlay.domain` | `Domain`, `Kit` | a `Space` of a `Domain`'s slots; `Kit.read`/`measure` → `Reading`, `Measure` |
+| okay-shop `okay.shop.commands` | `Frames`, `Words` | `Commands extends Space[Desk, Command]` — done |
+| okay-inlay `okay.inlay.domain` | `Domain`, `Kit` | a `Space` of a `Domain`'s slots; `Kit` → `Reading`, `Measure` |
 | okay-invest `GoalReader` | slots over `Read.score` | a `Space[Unit, Goal]`; its reader drives a `Reading` |
-| okay-desk `Frame`, `FrameSay`, `FrameReading` | lines by `Frame.next` | a `Space[Tables, Query]`; `FrameReading` drives a `Reading` |
+| okay-desk `Frame`, `FrameSay`, `FrameReading` | lines by `Frame.next` | a `Space[Tables, Query]` under a `Reading` |
 
 State 2026-11-17: the library and okay-shop. The other three have other sessions' work in progress; each moves
 when its tree is free, with its own tests unchanged as the proof.
