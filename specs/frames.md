@@ -65,5 +65,6 @@ answer, asking a person as an effect. Each has a home already; they meet a space
 | okay-invest `GoalReader` | slots over `Read.score` | a `Space[Unit, Goal]`; its reader drives a `Reading` |
 | okay-desk `Frame`, `FrameSay`, `FrameReading` | lines by `Frame.next` | a `Space[Tables, Query]` under a `Reading` |
 
-State 2026-11-17: the library and okay-shop. The other three have other sessions' work in progress; each moves
+State 2026-11-17: the library released (0.1.0, https://okay-effects.github.io/okay-frames/maven) and
+okay-shop on it. The other three have other sessions' work in progress; each moves
 when its tree is free, with its own tests unchanged as the proof.
