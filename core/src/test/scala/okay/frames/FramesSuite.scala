@@ -122,3 +122,15 @@ class FramesSuite extends munit.FunSuite:
     val unsure = Measure.of(Counter)(menu, pairs, 0.5)((_, h) => 0.3 +: Vector.fill(h.options.size - 1)(0.0))
     assertEquals(unsure.asked, 4)
     assert(exact.said.startsWith("4 texts: right 3, asked 0, unread 1, wrong 0"))
+
+  test("reach over many texts: the reached, the refusals by hole with their texts"):
+    val menu = Menu(Vector("coffee" -> Vector("small", "large"), "tea" -> Vector("large")))
+    val r = Reach.of(Counter)(Vector(
+      (menu, "2 large coffees", Order.Of("coffee", "large", 2)),
+      (menu, "a small tea, 1", Order.Of("tea", "small", 1)),       // tea comes in large only: the size refuses
+      (menu, "large coffee", Order.Of("coffee", "large", 1)),      // no number written: the count refuses
+      (menu, "hello", Order.Nothing)))
+    assertEquals((r.texts, r.reached), (4, 2))
+    assertEquals(r.refused, Map("size" -> 1, "count" -> 1))
+    assertEquals(r.examples("size"), Vector("a small tea, 1"))
+    assertEqualsDouble(r.share, 0.5, 1e-9)

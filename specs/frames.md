@@ -29,6 +29,11 @@ Each answers none when the law holds, or why it does not — so any test framewo
 - `reach(space)(data, text, term)`: the term's path is offered step by step and closes to it (theory.md L1, L2).
 - `roundTrip(space)(data, term, languages)`: `parse(say(t)) == t` (L5).
 - `distinct(space)(data, terms, language)`: no two terms say the same.
+- `Reach.of(space)(cases)`: `reach` over many texts with their meant terms — how many reach, and the refusals by
+  hole, with the first few texts. MEASURE IT BEFORE TRAINING A WEIGHER: a term not offered is an error no training
+  fixes. okay-desk (2026-11-18): 146 of 970 never-trained questions' gold frames were not reachable as the page
+  offered its options (a value said in another language pruned away, a date read as a number); fixing the options
+  took its reader's wrong answers from 194 to 138 of 1004 with the same weights.
 
 L3 (the exact engine) and L4 (refutation) are the space's own: this library never computes an answer.
 

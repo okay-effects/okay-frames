@@ -83,3 +83,29 @@ object Laws:
     terms.distinct.groupBy(space.say(data, _, language)).collectFirst {
       case (words, ts) if ts.size > 1 => s"$language: «$words» is said by ${ts.mkString(" and ")}"
     }
+
+/** REACH OVER MANY TEXTS (`Reach.of`): how many meant terms the space offers step by step, and the refusals by hole
+ * (where the path first leaves the options: its hole's name; `close` when every step is offered but the choices make
+ * another term), with the first texts of each. Measured before a weigher is trained: a term not offered is an error
+ * no training fixes (specs/frames.md §2) */
+final case class Reach(texts: Int, reached: Int, refused: Map[String, Int], examples: Map[String, Vector[String]]):
+  def share: Double = if texts == 0 then 1.0 else reached.toDouble / texts
+
+object Reach:
+  def of[D, T](space: Space[D, T])(cases: Seq[(D, String, T)], shown: Int = 3): Reach =
+    cases.foldLeft(Reach(0, 0, Map.empty, Map.empty)) { case (acc, (data, text, t)) =>
+      val path = space.path(data, t)
+      val leaves = path.indices.find { i =>
+        space.next(data, text, path.take(i)) match
+          case Some(h) => h.name != path(i).hole || !h.options.contains(path(i).option)
+          case None    => true
+      }
+      val where = leaves.map(i => path(i).hole)
+        .orElse(Option.when(!space.close(data, text, path).contains(t))("close"))
+      where match
+        case None => acc.copy(texts = acc.texts + 1, reached = acc.reached + 1)
+        case Some(h) =>
+          val seen = acc.examples.getOrElse(h, Vector.empty)
+          acc.copy(texts = acc.texts + 1, refused = acc.refused.updated(h, acc.refused.getOrElse(h, 0) + 1),
+            examples = acc.examples.updated(h, if seen.size < shown then seen :+ text else seen))
+    }
