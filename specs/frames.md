@@ -68,7 +68,7 @@ answer, asking a person as an effect. Each has a home already; they meet a space
 | okay-shop `okay.shop.commands` | `Frames`, `Words` | `Commands extends Space[Desk, Command]` — done |
 | okay-inlay `okay.inlay.domain` | `Domain`, `Kit` | a `Space` of a `Domain`'s slots; `Kit` → `Reading`, `Measure` |
 | okay-invest `GoalReader` | slots over `Read.score` | a `Space[Unit, Goal]`; its reader drives a `Reading` |
-| okay-desk `Frame`, `FrameSay`, `FrameReading` | lines by `Frame.next` | a `Space[Tables, Query]` under a `Reading` |
+| okay-desk `Frame`, `FrameSay`, `FrameReading` | lines by `Frame.next` | `FrameSpace extends Space[Tables, FrameTerm]` — done (2026-11-24): the term is the frame, not its `Query` (two paths to one program differ in an alias); the reader weighs the space's options; `FrameLaws` on `Reach.of` |
 
 State 2026-11-17: the library released (0.1.0, https://okay-effects.github.io/okay-frames/maven) and
 okay-shop on it. The other three have other sessions' work in progress; each moves
