@@ -66,10 +66,10 @@ answer, asking a person as an effect. Each has a home already; they meet a space
 | place | before | on okay-frames |
 | --- | --- | --- |
 | okay-shop `okay.shop.commands` | `Frames`, `Words` | `Commands extends Space[Desk, Command]` — done |
-| okay-inlay `okay.inlay.domain` | `Domain`, `Kit` | a `Space` of a `Domain`'s slots; `Kit` → `Reading`, `Measure` |
-| okay-invest `GoalReader` | slots over `Read.score` | a `Space[Unit, Goal]`; its reader drives a `Reading` |
+| okay-inlay `okay.inlay.domain` | `Domain`, `Kit` | `SlotSpace` (a `Domain`'s slots, canonical `slot=value` with an exact parser); `Kit`'s reading is a `Reading` — done (merged 2026-11-17, 3a7f2e0): master's numbers on fixed seeds |
+| okay-invest `GoalReader` | slots over `Read.score` | `GoalSpace extends Space[String, Goal]` (over the text, the slots' own setters); `GoalReader.read` drives a `Reading` — done (2026-11-27, bc379e2): laws on the 58 sealed phrases, ReaderBench the same readings before and after |
 | okay-desk `Frame`, `FrameSay`, `FrameReading` | lines by `Frame.next` | `FrameSpace extends Space[Tables, FrameTerm]` — done (2026-11-24): the term is the frame, not its `Query` (two paths to one program differ in an alias); the reader weighs the space's options; `FrameLaws` on `Reach.of` |
+| okay-desk `LineSpace`, `CoreReading` (units, clues, pay, tax rules) | lines by `next` | `LineSpace.asSpace` (`Space[W, LineTerm]`), `CoreReading` drives a `Reading` — done (2026-11-27, a9417d6): the tests on `Laws.reach` / `roundTrip`, 192 rule questions read with identical decisions |
 
-State 2026-11-17: the library released (0.1.0, https://okay-effects.github.io/okay-frames/maven) and
-okay-shop on it. The other three have other sessions' work in progress; each moves
-when its tree is free, with its own tests unchanged as the proof.
+State 2026-11-27: every place on okay-frames. Each moved with its own tests unchanged as the proof, and a model's
+readings compared before and after where a model reads.
